@@ -92,6 +92,7 @@ class FormController extends Controller
     {
         $rules = [];
         $questions = $form->questions()->get();
+        $all_answers = $request->only("answers");
 
         // If The Time excited The End_date for the Form Then...
         if (Carbon::parse($form->end_date)->diffInMinutes(now()) < 0) {
@@ -107,9 +108,9 @@ class FormController extends Controller
             else if ($type == "phone") $rule = "required|string|min:11|max:11";
             else if ($type == "number") $rule = "required|numeric|min:15|max:40";
             else if ($type == "email") $rule = "required|email";
-            else if ($type == "rating") $rule = "required|numeric";
+            else if ($type == "rating") $rule = "required|string";
             else if ($type == "choose") $rule = "required|string";
-            else if ($type == "video") $rule = "nullable";
+            else if ($type == "video") $rule = "string";
 
             // rate your self about one thing|choose1,choose2,choose3,choose4
             // watch the video|url_link
