@@ -1,8 +1,7 @@
 <?php
 
-use App\Http\Controllers\FormController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FormController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('form')->group(function () {
+
+Route::group(['prefix' => 'form'], function () {
     Route::get("/", [FormController::class, 'showAll']);
     Route::post("/", [FormController::class, 'createForm']);
     Route::get("/{form}", [FormController::class, 'showForm']);
@@ -29,5 +29,5 @@ Route::prefix('form')->group(function () {
         FormController::class,
         'showApplicants'
     ]);
-    Route::post("/{form}/submitanswers", [FormController::class, 'submitAnswers']);
+    Route::post("/{form}/submitanswers", [FormController::class, 'submitAnswers'])->middleware(['throttle:1,2']);
 });
