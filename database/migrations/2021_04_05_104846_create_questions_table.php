@@ -17,11 +17,14 @@ class CreateQuestionsTable extends Migration
             $table->id('id');
             $table->string('title');
             $table->enum('type', [
-                "phone", // for mobile phone
-                "long_text", // for long textarea
-                "text", // for short text
-                "email", // for email
-                "number" // for number
+                "phone",
+                "long_text",
+                "text",
+                "email",
+                "number",
+                "rating",
+                "choose",
+                "video"
             ]);
         });
     }

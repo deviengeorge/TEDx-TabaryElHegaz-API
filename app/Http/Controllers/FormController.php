@@ -6,7 +6,6 @@ use App\Http\Resources\FormResource;
 use App\Models\Answer;
 use App\Models\Applicant;
 use App\Models\Form;
-use App\Models\FormQuestion;
 use App\Models\Question;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -69,7 +68,7 @@ class FormController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:100',
-            'type' => 'required|in:text,long_text,phone,number,email',
+            'type' => 'required|in:text,long_text,phone,number,email,rating,video,choose',
         ]);
         if ($validator->fails()) {
             return response(['errors' => $validator->errors()->all()], 404);
@@ -108,6 +107,13 @@ class FormController extends Controller
             else if ($type == "phone") $rule = "required|string|min:11|max:11";
             else if ($type == "number") $rule = "required|numeric|min:15|max:40";
             else if ($type == "email") $rule = "required|email";
+            else if ($type == "rating") $rule = "required|numeric";
+            else if ($type == "choose") $rule = "required|string";
+            else if ($type == "video") $rule = "nullable";
+
+            // rate your self about one thing|choose1,choose2,choose3,choose4
+            // watch the video|url_link
+            // rating your self
             // Check The Type of The Question Field...
 
             // Assign The Validation Array

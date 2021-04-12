@@ -28,8 +28,8 @@ class QuestionSeeder extends Seeder
                 "title" => "What is Your Age?",
                 "type" => "number"
             ], [
-                "title" => "Describe About Your Self in 100 Word?",
-                "type" => "long_text"
+                "title" => "Watch The Video||https://youtu.be/sgVHHcfI8Xg",
+                "type" => "video"
             ],
         ]);
     }
