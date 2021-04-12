@@ -26,11 +26,6 @@ class Form extends Model
         return $this->hasMany(Applicant::class);
     }
 
-    public function requirements()
-    {
-        return $this->hasMany(Requirement::class);
-    }
-
     public function responsibilities()
     {
         return $this->hasMany(Responsibility::class);

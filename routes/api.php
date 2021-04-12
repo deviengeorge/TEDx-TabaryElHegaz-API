@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FormController;
 
 /*
@@ -31,3 +32,9 @@ Route::group(['prefix' => 'form'], function () {
     ]);
     Route::post("/{form}/submitanswers", [FormController::class, 'submitAnswers'])->middleware(['throttle:1,2']);
 });
+
+
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/me', [AuthController::class, 'me'])->middleware('auth:sanctum');
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');

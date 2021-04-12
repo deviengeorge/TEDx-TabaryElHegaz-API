@@ -25,7 +25,7 @@ class FormController extends Controller
         return new FormResource(
             Form::query()
                 ->where("id", $form->id)
-                ->with(["questions", "requirements", "responsibilities"])
+                ->with(["questions", "responsibilities"])
                 ->first()
         );
     }
@@ -45,12 +45,7 @@ class FormController extends Controller
             ["content" => "Bla Bla Bla"],
             ["content" => "Bla Bla Bla"]
         ]);
-        $form->requirements()->createMany([
-            ["content" => "Have an experience with programming"],
-            ["content" => "Can deal with problems solving and design patterns"],
-            ["content" => "Familiar with database"],
-            ["content" => "Knows About Flutter"]
-        ]);
+
 
         return response(["message" => "Successfully Created A Form"], 201);
     }

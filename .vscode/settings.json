@@ -1,7 +1,9 @@
 {
     "cSpell.words": [
         "addquestion",
+        "authenticatable",
         "deletequestion",
+        "laravel",
         "showapplicants",
         "submitanswers"
     ]

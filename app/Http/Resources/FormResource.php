@@ -15,19 +15,16 @@ class FormResource extends JsonResource
     public function toArray($request)
     {
 
-        $requirements = [];
         $responsibilities = [];
-        foreach ($this->requirements as $requirement) {
-            $requirements[] = $requirement->content;
-        }
 
         foreach ($this->responsibilities as $responsibility) {
             $responsibilities[] = $responsibility->content;
         }
         return [
             'id' => $this->id,
+            'name' => $this->name,
+            'end_date' => $this->end_data,
             'questions' => QuestionResource::collection($this->questions),
-            'requirements' => $requirements,
             'responsibilities' => $responsibilities,
         ];
     }
