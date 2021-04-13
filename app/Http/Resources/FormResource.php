@@ -23,7 +23,7 @@ class FormResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'end_date' => $this->end_data->format('Y-m-d H:i:s'),
+            'end_date' => $this->end_data,
             'questions' => QuestionResource::collection($this->questions),
             'responsibilities' => $responsibilities,
         ];
