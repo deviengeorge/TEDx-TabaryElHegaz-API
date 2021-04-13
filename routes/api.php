@@ -18,18 +18,18 @@ use App\Http\Controllers\FormController;
 
 Route::group(['prefix' => 'form'], function () {
     Route::get("/", [FormController::class, 'showAll']);
-    Route::post("/", [FormController::class, 'createForm']);
+    Route::post("/", [FormController::class, 'createForm'])->middleware('auth:sanctum');
     Route::get("/{form}", [FormController::class, 'showForm']);
-    Route::post("/{form}/addquestion", [FormController::class, 'addQuestion']);
-    Route::delete("/{form}/deletequestion/{id}", [FormController::class, 'deleteQuestion']);
+    Route::post("/{form}/addquestion", [FormController::class, 'addQuestion'])->middleware('auth:sanctum');
+    Route::delete("/{form}/deletequestion/{id}", [FormController::class, 'deleteQuestion'])->middleware('auth:sanctum');
     Route::get("/{form}/showapplicants/{id}", [
         FormController::class,
         'showApplicant'
-    ]);
+    ])->middleware('auth:sanctum');
     Route::get("/{form}/showapplicants", [
         FormController::class,
         'showApplicants'
-    ]);
+    ])->middleware('auth:sanctum');
     Route::post("/{form}/submitanswers", [FormController::class, 'submitAnswers'])->middleware(['throttle:1,2']);
 });
 

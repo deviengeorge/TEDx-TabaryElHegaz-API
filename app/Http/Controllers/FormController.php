@@ -6,7 +6,6 @@ use App\Http\Resources\FormResource;
 use App\Models\Answer;
 use App\Models\Applicant;
 use App\Models\Form;
-use App\Models\Question;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Validator;
