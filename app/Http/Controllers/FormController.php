@@ -36,7 +36,7 @@ class FormController extends Controller
         ]);
 
         // Add the Fixed Questions IDs to the New Form
-        $form->questions()->attach([1, 2, 3, 4, 5]);
+        $form->questions()->attach([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]);
         $form->responsibilities()->createMany([
             ["content" => "Participate in Website and Applications"],
             ["content" => "Help with any technical issues with the team members"],
