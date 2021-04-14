@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ApplicantResource;
 use App\Http\Resources\FormResource;
 use App\Models\Answer;
 use App\Models\Applicant;
@@ -50,16 +51,26 @@ class FormController extends Controller
 
     public function showApplicant(Form $form, $id)
     {
-        $answers = Applicant::query()->where('id', $id)->first('answer')->explode('||,||');
-        $questions = $form->questions()->get();
-        return response(["answers" => $answers, "questions" => $questions], 200);
+        return new ApplicantResource(
+            Applicant::query()
+                ->where("id", $id)
+                ->first()
+        );
     }
 
     public function showApplicants(Form $form)
     {
-        $applicants = Applicant::query()->where("form_id", $form->id)->get();
-        $questions = $form->questions()->get();
-        return response(["applicants" => $applicants, "questions" => $questions], 200);
+        return ApplicantResource::collection(
+            Applicant::query()
+                ->where("form_id", $form->id)
+                ->get()
+        );
+        // return new ApplicantResource(
+        //     Form::query()
+        //         ->where("id", $form->id)
+        //         ->with(["questions", "applicants"])
+        //         ->first()
+        // );
     }
 
 
