@@ -25,16 +25,16 @@ class FormSeeder extends Seeder
         // 'Graphic Design Committee',
         // 'Video Editing Committee',
         Form::insert([
-            ["name" => "PR Committee"],
-            ["name" => "OC Committee"],
-            ["name" => "IT & Tech Support Committee"],
-            ["name" => "Human Resources Committee"],
-            ["name" => "Coaching Committee"],
-            ["name" => "Marketing Committee"],
-            ["name" => "Photography Committee"],
-            ["name" => "Content Creation Committee"],
-            ["name" => "Graphic Design Committee"],
-            ["name" => "Video Editing Committee"],
+            ["name" => "PR Committee", 'end_date' => now()->addDays(15)],
+            ["name" => "OC Committee", 'end_date' => now()->addDays(15)],
+            ["name" => "IT & Tech Support Committee", 'end_date' => now()->addDays(15)],
+            ["name" => "Human Resources Committee", 'end_date' => now()->addDays(15)],
+            ["name" => "Coaching Committee", 'end_date' => now()->addDays(15)],
+            ["name" => "Marketing Committee", 'end_date' => now()->addDays(15)],
+            ["name" => "Photography Committee", 'end_date' => now()->addDays(15)],
+            ["name" => "Content Creation Committee", 'end_date' => now()->addDays(15)],
+            ["name" => "Graphic Design Committee", 'end_date' => now()->addDays(15)],
+            ["name" => "Video Editing Committee", 'end_date' => now()->addDays(15)],
         ]);
     }
 }

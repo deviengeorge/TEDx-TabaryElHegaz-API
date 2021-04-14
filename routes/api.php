@@ -30,7 +30,7 @@ Route::group(['prefix' => 'form'], function () {
         FormController::class,
         'showApplicants'
     ])->middleware('auth:sanctum');
-    Route::post("/{form}/submitanswers", [FormController::class, 'submitAnswers'])->middleware(['throttle:1,2']);
+    Route::post("/{id}/submitanswers", [FormController::class, 'submitAnswers']);
 });
 
 

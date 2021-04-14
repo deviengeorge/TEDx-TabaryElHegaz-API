@@ -16,6 +16,7 @@ class CreateApplicantsTable extends Migration
         Schema::create('applicants', function (Blueprint $table) {
             $table->id('id');
             $table->integer('form_id')->unsigned();
+            $table->longText('answer');
             $table->timestamps();
             $table->foreign('form_id')
                 ->references('id')

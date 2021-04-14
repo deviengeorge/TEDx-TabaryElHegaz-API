@@ -50,14 +50,14 @@ class FormController extends Controller
 
     public function showApplicant(Form $form, $id)
     {
-        $answers = Answer::query()->where("applicant_id", $id)->get();
+        $answers = Applicant::query()->where('id', $id)->first('answer')->explode('||,||');
         $questions = $form->questions()->get();
         return response(["answers" => $answers, "questions" => $questions], 200);
     }
 
     public function showApplicants(Form $form)
     {
-        $applicants = Applicant::query()->where("form_id", $form->id)->with('answers')->get();
+        $applicants = Applicant::query()->where("form_id", $form->id)->get();
         $questions = $form->questions()->get();
         return response(["applicants" => $applicants, "questions" => $questions], 200);
     }
@@ -87,18 +87,17 @@ class FormController extends Controller
     }
 
 
-    public function submitAnswers(Request $request, Form $form)
+    public function submitAnswers(Request $request, $id)
     {
         $rules = [];
-        $questions = $form->questions()->get();
-        $all_answers = $request->only("answers");
+        $form = Form::query()->where('id', $id)->with('questions')->first();
 
         // If The Time excited The End_date for the Form Then...
         if (Carbon::parse($form->end_date)->diffInMinutes(now()) < 0) {
             return response(["message" => "Sorry The Form Is Closed Right Now."], 406);
         }
 
-        foreach ($questions as $index => $question) {
+        foreach ($form->questions as $index => $question) {
             $type = $question['type'];
             $rule = "";
 
@@ -111,13 +110,8 @@ class FormController extends Controller
             else if ($type == "choose") $rule = "required|string";
             else if ($type == "video") $rule = "string";
 
-            // rate your self about one thing|choose1,choose2,choose3,choose4
-            // watch the video|url_link
-            // rating your self
-            // Check The Type of The Question Field...
-
             // Assign The Validation Array
-            $rules["answers.$index.answer"] = $rule;
+            $rules["answers.$index"] = $rule;
         }
 
         $validator = Validator::make($request->only("answers"), $rules);
@@ -125,10 +119,12 @@ class FormController extends Controller
             return response(['errors' => $validator->errors()->all()], 404);
         }
 
-        $applicant = Applicant::create([
-            "form_id" => $form->id
+
+        $answer = implode("||,||", $request->input("answers"));
+        Applicant::create([
+            "form_id" => $form->id,
+            "answer" => $answer
         ]);
-        $applicant->answers()->createMany($request->input("answers"));
         return response(["message" => "Answers Saved To the $form->name"], 201);
     }
 
